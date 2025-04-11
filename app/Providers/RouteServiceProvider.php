@@ -16,20 +16,22 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->configureRateLimiting();
 
-        $this->routes(function () {
-            Route::middleware('api')
-                ->prefix('api')
-                ->group(base_path('routes/api.php'));
+        // $this->routes(function () {
+        //     Route::middleware('api')
+        //         ->prefix('api')
+        //         ->group(base_path('routes/api.php'));
 
-           
+        //         Route::middleware('web')
+        //         ->group(base_path('routes/web.php'));
 
-            foreach (File::allFiles(base_path("src/BoundedContext/**/Infrastructure/routes")) as $routeFile) {
-                $type = explode(".", $routeFile->getBasename())[0];
-                Route::prefix($type)
-                    ->middleware($type)
-                    ->group($routeFile->getRealPath());
-            }
-        });
+        //     foreach (File::allFiles(base_path("src/BoundedContext/**/Infrastructure/routes")) as $routeFile) {
+        //         $type = explode(".", $routeFile->getBasename())[0];
+        //         Route::prefix($type)
+        //             ->middleware($type)
+        //             ->group($routeFile->getRealPath());
+        //     }
+        // });
+        
     }
     protected function configureRateLimiting()
     {

@@ -17,7 +17,6 @@ final class CourseModelFactory extends Factory{
                 'Course C',
                 'Course D'
 
-
             ])
         ];
     }

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Core\Shared\Domain\UuidGenerator;
+use Core\Shared\Infrastructure\RamseyUuidGenerator;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
@@ -13,7 +15,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(
+            UuidGenerator::class,
+            RamseyUuidGenerator::class
+        );
+        
     }
 
     /**
@@ -22,14 +28,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadMigrationsFrom(
-            File::allFiles(base_path("src/BoundedContext/**/InfrastructureLayer/migrations"))
+            File::allFiles(base_path("src/BoundedContext/**/Infrastructure/migrations"))
         );
 
-        $this->loadSeedersFrom(base_path("src/BoundedContext/**/InfrastructureLayer/seeders"));
+        $this->loadSeedersFrom(base_path("src/BoundedContext/**/Infrastructure/seeders"));
         Factory::guessFactoryNamesUsing(function (string $modelName) {
             return str_replace(
-                'Core\\BoundedContext\\**\\InfrastructureLayer\\Persistence\\Eloquent',
-                'Core\\BoundedContext\\**\\InfrastructureLayer\\factories',
+                'Core\\BoundedContext\\**\\Infrastructure\\Persistence\\Eloquent',
+                'Core\\BoundedContext\\**\\Infrastructure\\factories',
                 $modelName
             ) . 'Factory';
         });

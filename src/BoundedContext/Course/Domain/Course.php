@@ -32,4 +32,5 @@ class Course  {
     {
         return $this->name;
     }
+    
 }

@@ -8,7 +8,7 @@ use Throwable;
 
 final class CourseAlreadyExist extends DomainException{
 
-    public function __construct($message = "", $code = 0, Throwable $previus= null)
+    public function __construct($message = "", $code = 0, ?Throwable $previus)
     {
         $message = "" === $message ? "Course already exist" : $message;
 
